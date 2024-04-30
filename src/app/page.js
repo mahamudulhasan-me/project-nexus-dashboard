@@ -1,4 +1,4 @@
-import AuthenticationPage from "./components/Authentication/AuthenticationPage";
+import AuthenticationPage from "../components/Authentication/AuthenticationPage";
 
 export default function Home() {
   return (

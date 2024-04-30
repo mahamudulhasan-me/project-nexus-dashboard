@@ -1,19 +1,23 @@
 "use client";
 import { Tabs } from "antd";
 import Image from "next/image";
+import { useState } from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 const AuthenticationPage = () => {
+  const [signInKey, setSignInKey] = useState("signIn");
+  const [registerKey, setRegisterKey] = useState("register");
+
   const items = [
     {
-      key: "signIn",
+      key: signInKey,
       label: "Sign In",
-      children: <SignIn />,
+      children: <SignIn setRegisterKey={setRegisterKey} />,
     },
     {
-      key: "signUp",
-      label: "Sign Up",
+      key: registerKey,
+      label: "Register",
       children: <SignUp />,
     },
   ];
@@ -30,7 +34,7 @@ const AuthenticationPage = () => {
             Sign In to continue to Nexus Dashboard
           </h6>
         </div>
-        <Tabs defaultActiveKey="1" items={items} className="px-1" />
+        <Tabs defaultActiveKey="signIn" items={items} className="px-1" />
         <p className="text-center text-gray-500 text-xs mt-3 mb-2">
           &copy;2024 Project Nexus
         </p>
