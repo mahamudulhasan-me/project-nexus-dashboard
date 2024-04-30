@@ -16,7 +16,7 @@ const ProjectPage = () => {
     return response.json();
   };
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["projects"],
     queryFn: useGetProjects,
   });
@@ -44,11 +44,12 @@ const ProjectPage = () => {
         </div>
       </div>
       <Divider plain />
-      <ProjectsTable data={data} />
+      <ProjectsTable data={data} refetch={refetch} />
       {isOpenProjectModal && (
         <ProjectModal
           setIsOpenProjectModal={setIsOpenProjectModal}
           isOpenProjectModal={isOpenProjectModal}
+          refetch={refetch}
         />
       )}
     </div>

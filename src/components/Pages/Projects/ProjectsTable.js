@@ -3,107 +3,113 @@ import {
   EditTwoTone,
   FundViewOutlined,
 } from "@ant-design/icons";
-import { Space, Table, Tag, Tooltip } from "antd";
+import { Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import moment from "moment";
+import toast from "react-hot-toast";
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    // render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    render: (_, { status }) => {
-      let color = "#faad14";
-      status === "In Progress"
-        ? (color = "#1890ff")
-        : status === "Completed" && (color = "#52c41a");
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
+const ProjectsTable = ({ data, refetch }) => {
+  const handleDeleteProject = async (projectId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/projects/${projectId}`,
+        {
+          method: "DELETE",
+        }
       );
-    },
-  },
-  {
-    title: "Teams",
-    key: "team",
-    dataIndex: "team",
-    render: (_, { team }) => (
-      <>
-        {team.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: "Assign Date",
-    dataIndex: "createAt",
-    key: "createAt",
-    render: (_, { createAt }) => moment(createAt).format("MMM Do YY"),
-  },
-  {
-    title: "Dead Line",
-    dataIndex: "deadline",
-    key: "deadline",
-    render: (_, { deadline }) => moment(deadline).format("MMM Do YY"),
-  },
+      if (response.ok) {
+        toast.success("Project deleted successfully");
+        refetch();
+      } else {
+        toast.error("Failed to delete project");
+      }
+    } catch (error) {
+      toast.error("Error deleting project:", error.message);
+    }
+  };
 
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle" className="text-xl">
-        <Tooltip title="View Project">
-          <FundViewOutlined className="cursor-pointer" />
-        </Tooltip>
-        <Tooltip title="Edit Project" color="geekblue">
-          <EditTwoTone className="cursor-pointer" />
-        </Tooltip>
-        <Tooltip title="Delete Project" color="red">
-          <DeleteOutlined className="text-rose-600 cursor-pointer" />
-        </Tooltip>
-      </Space>
-    ),
-  },
-];
-// const data = [
-//   {
-//     key: "1",
-//     name: "John Brown",
-//     age: 32,
-//     address: "New York No. 1 Lake Park",
-//     tags: ["nice", "developer"],
-//   },
-//   {
-//     key: "2",
-//     name: "Jim Green",
-//     age: 42,
-//     address: "London No. 1 Lake Park",
-//     tags: ["loser"],
-//   },
-//   {
-//     key: "3",
-//     name: "Joe Black",
-//     age: 32,
-//     address: "Sydney No. 1 Lake Park",
-//     tags: ["cool", "teacher"],
-//   },
-// ];
-const ProjectsTable = ({ data }) => (
-  <Table columns={columns} dataSource={data} />
-);
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      // render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_, { status }) => {
+        let color = "#faad14";
+        status === "In Progress"
+          ? (color = "#1890ff")
+          : status === "Completed" && (color = "#52c41a");
+        return (
+          <Tag color={color} key={status}>
+            {status.toUpperCase()}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: "Teams",
+      key: "team",
+      dataIndex: "team",
+      render: (_, { team }) => (
+        <>
+          {team.map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "loser") {
+              color = "volcano";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
+      title: "Assign Date",
+      dataIndex: "createAt",
+      key: "createAt",
+      render: (_, { createAt }) => moment(createAt).format("MMM Do YY"),
+    },
+    {
+      title: "Dead Line",
+      dataIndex: "deadline",
+      key: "deadline",
+      render: (_, { deadline }) => moment(deadline).format("MMM Do YY"),
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle" className="text-xl">
+          <Tooltip title="View Project">
+            <FundViewOutlined className="cursor-pointer" />
+          </Tooltip>
+          <Tooltip title="Edit Project" color="geekblue">
+            <EditTwoTone className="cursor-pointer" />
+          </Tooltip>
+          <Tooltip title="Delete Project" color="red">
+            <Popconfirm
+              title="Delete the task"
+              description="Are you sure to delete this task?"
+              onConfirm={() => handleDeleteProject(record._id)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <DeleteOutlined className="text-rose-600 cursor-pointer" />
+            </Popconfirm>
+          </Tooltip>
+        </Space>
+      ),
+    },
+  ];
+
+  return <Table columns={columns} dataSource={data} />;
+};
+
 export default ProjectsTable;
