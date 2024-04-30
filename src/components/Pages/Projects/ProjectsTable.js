@@ -5,9 +5,20 @@ import {
 } from "@ant-design/icons";
 import { Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import moment from "moment";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import ProjectUpdateModal from "./ProjectUpdateModal";
 
 const ProjectsTable = ({ data, refetch }) => {
+  const [isUpdate, setIsUpdated] = useState(false);
+  const [updatedInfo, setUpdatedInfo] = useState({});
+  const [isOpenProjectModal, setIsOpenProjectModal] = useState(false);
+
+  const handleEditProject = (record) => {
+    setIsOpenProjectModal(true);
+    setUpdatedInfo(record);
+    setIsUpdated(true);
+  };
   const handleDeleteProject = async (projectId) => {
     try {
       const response = await fetch(
@@ -63,7 +74,7 @@ const ProjectsTable = ({ data, refetch }) => {
             }
             return (
               <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
+                {tag}
               </Tag>
             );
           })}
@@ -91,7 +102,10 @@ const ProjectsTable = ({ data, refetch }) => {
             <FundViewOutlined className="cursor-pointer" />
           </Tooltip>
           <Tooltip title="Edit Project" color="geekblue">
-            <EditTwoTone className="cursor-pointer" />
+            <EditTwoTone
+              onClick={() => handleEditProject(record)}
+              className="cursor-pointer"
+            />
           </Tooltip>
           <Tooltip title="Delete Project" color="red">
             <Popconfirm
@@ -109,7 +123,20 @@ const ProjectsTable = ({ data, refetch }) => {
     },
   ];
 
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <>
+      {isOpenProjectModal && (
+        <ProjectUpdateModal
+          isOpenProjectModal={isOpenProjectModal}
+          setIsOpenProjectModal={setIsOpenProjectModal}
+          updatedInfo={updatedInfo}
+          isUpdate={isUpdate}
+          refetch={refetch}
+        />
+      )}
+      <Table columns={columns} dataSource={data} />
+    </>
+  );
 };
 
 export default ProjectsTable;

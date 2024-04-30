@@ -14,6 +14,7 @@ const TeamMembers = [
 const ProjectModal = ({
   isOpenProjectModal,
   setIsOpenProjectModal,
+  isUpdate,
   refetch,
 }) => {
   const [projectName, setProjectName] = useState("");
@@ -30,7 +31,7 @@ const ProjectModal = ({
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleCreateProject = async (e) => {
     e.preventDefault();
 
     try {
@@ -73,10 +74,10 @@ const ProjectModal = ({
 
   return (
     <Modal
-      title="Create New Project"
+      title={"Create erer Project"}
       centered
       open={isOpenProjectModal} // Use visible instead of open
-      onOk={handleSubmit}
+      onOk={handleCreateProject}
       onCancel={() => setIsOpenProjectModal(false)}
       okText="Create"
     >
@@ -84,7 +85,7 @@ const ProjectModal = ({
       <form
         ref={formRef}
         className="space-y-4"
-        onSubmit={handleSubmit}
+        onSubmit={handleCreateProject}
         onKeyDown={handleEnterKeyPress}
       >
         <div>
@@ -129,7 +130,6 @@ const ProjectModal = ({
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <button type="submit" style={{ display: "none" }} />
       </form>
     </Modal>
   );
