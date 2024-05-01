@@ -13,6 +13,8 @@ import toast from "react-hot-toast";
 
 const SignIn = ({ setRegisterKey }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("admin@nexusProject.com");
+  const [password, setPassword] = useState("123");
   const router = useRouter();
   const authCredentials = {
     email: "admin@nexusProject.com",
@@ -45,7 +47,8 @@ const SignIn = ({ setRegisterKey }) => {
               placeholder="Enter Email"
               name="email"
               type="email"
-              value={"admin@nexusProject.com"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -53,7 +56,8 @@ const SignIn = ({ setRegisterKey }) => {
             <Input.Password
               placeholder="Enter Password"
               name="password"
-              value={"123"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
@@ -76,7 +80,7 @@ const SignIn = ({ setRegisterKey }) => {
             Sign In
           </Button>
         </form>
-        <p className="text-center">
+        {/* <p className="text-center">
           Don&apos;t have an account?{" "}
           <Link
             href={""}
@@ -85,7 +89,7 @@ const SignIn = ({ setRegisterKey }) => {
           >
             Free Register
           </Link>
-        </p>
+        </p> */}
         <Divider plain>Or Sign In with</Divider>
         <Radio.Group className="w-full flex flex-row justify-between ">
           <Radio.Button value="google" className="w-full text-center">

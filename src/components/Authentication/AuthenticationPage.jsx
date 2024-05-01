@@ -24,7 +24,7 @@ const AuthenticationPage = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-[url('/images/authBg.png')] bg-cover bg-center bg-slate-200 bg-opacity-40 bg-blend-overlay">
-      <div className="w-1/4 border border-gray-200 bg-white">
+      <div className="md:w-1/4 w-full border border-gray-200 bg-white">
         <div className="w-full flex flex-col justify-center items-center bg-slate-900 py-4">
           <Image src={"/images/logo.png"} width={40} height={40} alt="logo" />
           <h4 className="text-xl text-white">

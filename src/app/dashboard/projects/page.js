@@ -37,7 +37,7 @@ const ProjectPage = () => {
 
   useEffect(() => {
     const delaySearch = setTimeout(() => {
-      const filtered = data.filter((project) =>
+      const filtered = data?.filter((project) =>
         projectMatchesSearch(project, searchValue)
       );
       setFilteredData(filtered);
@@ -57,8 +57,8 @@ const ProjectPage = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between md:flex-row flex-col ">
+        <div className="flex items-center md:flex-row flex-col  gap-2">
           <h1 className="text-3xl font-semibold">Projects</h1>{" "}
           <Search
             placeholder="input search text"
@@ -74,7 +74,7 @@ const ProjectPage = () => {
           /> */}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center md:flex-row flex-col gap-4 mt-3 md:mt-0">
           <Button
             onClick={() => setIsOpenProjectModal(true)}
             type="primary"

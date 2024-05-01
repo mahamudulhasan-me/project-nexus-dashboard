@@ -13,7 +13,7 @@ import { Avatar, Button, Divider, Layout, Menu } from "antd";
 import Search from "antd/es/input/Search";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const { Header, Sider, Content } = Layout;
 
@@ -46,6 +46,20 @@ const DashboardLayout = ({ children }) => {
       href: "/dashboard/tasks-board",
     },
   ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 768; // Adjust the mobile size threshold as needed
+      setCollapsed(true);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initialize collapsed state on component mount
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <Layout>
@@ -85,7 +99,7 @@ const DashboardLayout = ({ children }) => {
               placeholder="input search text"
               allowClear
               //   onSearch={onSearch}
-              style={{ width: 300 }}
+              className="w-[300px] hidden md:block"
             />
           </div>
           <div className="flex items-center  justify-around ">

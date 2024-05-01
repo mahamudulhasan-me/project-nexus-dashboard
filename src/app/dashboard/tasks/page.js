@@ -37,7 +37,7 @@ const TasksPage = () => {
 
   useEffect(() => {
     const delaySearch = setTimeout(() => {
-      const filtered = data.filter((task) =>
+      const filtered = data?.filter((task) =>
         taskMatchesSearch(task, searchValue)
       );
       setTasksData(filtered);
@@ -57,8 +57,8 @@ const TasksPage = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between md:flex-row flex-col">
+        <div className="flex items-center md:flex-row flex-col gap-2">
           <h1 className="text-3xl font-semibold">Tasks</h1>{" "}
           <Search
             placeholder="input search text"
@@ -67,7 +67,7 @@ const TasksPage = () => {
             style={{ width: 250 }}
           />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center md:flex-row flex-col mt-3 md:mt-0 gap-4">
           {" "}
           <Button
             onClick={() => setIsOpenTaskModal(true)}

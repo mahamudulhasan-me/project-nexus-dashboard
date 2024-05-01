@@ -43,7 +43,7 @@ const TasksBoard = () => {
         </div>
         <Divider plain />
 
-        <div className="grid grid-cols-3 gap-10 h-full">
+        <div className="md:grid grid-cols-3 gap-10 h-full space-y-5 md:space-y-0">
           {/* Wrap TaskCard components inside Droppable */}
           <Droppable droppableId="pending">
             {(provided) => (
