@@ -1,6 +1,7 @@
 "use client";
 import {
   BellOutlined,
+  CodepenOutlined,
   FundProjectionScreenOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -41,7 +42,7 @@ const DashboardLayout = ({ children }) => {
     },
     {
       key: "taskBoard",
-      icon: <UnorderedListOutlined />,
+      icon: <CodepenOutlined />,
       label: "Task Board",
       href: "/dashboard/tasks-board",
     },

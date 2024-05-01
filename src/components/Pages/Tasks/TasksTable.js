@@ -137,7 +137,9 @@ const TasksTable = ({ data, refetch, isLoading }) => {
   ];
 
   return (
-    <>
+    <div className="overflow-x-auto">
+      {" "}
+      {/* Add horizontal scrolling */}
       <Table columns={columns} dataSource={data} loading={isLoading} />
       <TasksModal
         isUpdate={isUpdate}
@@ -151,7 +153,7 @@ const TasksTable = ({ data, refetch, isLoading }) => {
         setOpenTaskViewModal={setOpenTaskViewModal}
         taskInfo={updatedInfo}
       />
-    </>
+    </div>
   );
 };
 

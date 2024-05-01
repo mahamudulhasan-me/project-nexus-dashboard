@@ -134,21 +134,23 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
 
   return (
     <>
-      {isOpenProjectModal && (
-        <ProjectUpdateModal
-          isOpenProjectModal={isOpenProjectModal}
-          setIsOpenProjectModal={setIsOpenProjectModal}
-          updatedInfo={updatedInfo}
-          isUpdate={isUpdate}
-          refetch={refetch}
+      <div className="overflow-x-auto">
+        {isOpenProjectModal && (
+          <ProjectUpdateModal
+            isOpenProjectModal={isOpenProjectModal}
+            setIsOpenProjectModal={setIsOpenProjectModal}
+            updatedInfo={updatedInfo}
+            isUpdate={isUpdate}
+            refetch={refetch}
+          />
+        )}
+        <ProjectViewModal
+          setOpenProjectViewModal={setOpenProjectViewModal}
+          openProjectViewModal={openProjectViewModal}
+          projectInfo={updatedInfo}
         />
-      )}
-      <ProjectViewModal
-        setOpenProjectViewModal={setOpenProjectViewModal}
-        openProjectViewModal={openProjectViewModal}
-        projectInfo={updatedInfo}
-      />
-      <Table columns={columns} dataSource={data} loading={isLoading} />
+        <Table columns={columns} dataSource={data} loading={isLoading} />
+      </div>
     </>
   );
 };

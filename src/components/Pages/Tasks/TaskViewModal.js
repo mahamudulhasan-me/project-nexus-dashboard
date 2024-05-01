@@ -47,7 +47,7 @@ const TaskViewModal = ({
                 : "green"
             }
           >
-            {status}
+            {priority}
           </Tag>,
           <EllipsisOutlined key="ellipsis" />,
         ]}
