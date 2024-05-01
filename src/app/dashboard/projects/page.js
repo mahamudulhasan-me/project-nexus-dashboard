@@ -2,6 +2,7 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Divider, Radio } from "antd";
+import Search from "antd/es/input/Search";
 import { useEffect, useState } from "react";
 import ProjectModal from "../../../components/Pages/Projects/ProjectModal";
 import ProjectsTable from "../../../components/Pages/Projects/ProjectsTable";
@@ -10,6 +11,7 @@ const ProjectPage = () => {
   const [isOpenProjectModal, setIsOpenProjectModal] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [filterBy, setFilterBy] = useState("all");
+  const [searchValue, setSearchValue] = useState("");
   const useGetProjects = async () => {
     const response = await fetch("http://localhost:5000/projects");
     if (!response.ok) {
@@ -33,17 +35,51 @@ const ProjectPage = () => {
     }
   }, [data, filterBy]);
 
+  useEffect(() => {
+    const delaySearch = setTimeout(() => {
+      const filtered = data.filter((project) =>
+        projectMatchesSearch(project, searchValue)
+      );
+      setFilteredData(filtered);
+    }, 300); // Adjust the delay time as needed
+
+    return () => clearTimeout(delaySearch);
+  }, [searchValue, data]);
+
+  const projectMatchesSearch = (project, searchValue) => {
+    const searchString = searchValue.toLowerCase();
+    return (
+      project.name.toLowerCase().includes(searchString) ||
+      project.deadline.toLowerCase().includes(searchString) ||
+      project.team.some((member) => member.toLowerCase().includes(searchString))
+    );
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Projects</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-3xl font-semibold">Projects</h1>{" "}
+          <Search
+            placeholder="input search text"
+            allowClear
+            onChange={(e) => setSearchValue(e.target.value)}
+            style={{ width: 250 }}
+          />
+          {/* <input
+            placeholder="Search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            style={{ width: 250 }}
+          /> */}
+        </div>
+
         <div className="flex items-center gap-4">
-          {" "}
           <Button
             onClick={() => setIsOpenProjectModal(true)}
             type="primary"
             icon={<PlusCircleOutlined />}
-            size={"middle"}
+            size="middle"
           >
             Create Project
           </Button>

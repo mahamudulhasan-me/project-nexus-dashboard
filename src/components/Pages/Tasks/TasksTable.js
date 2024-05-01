@@ -10,17 +10,23 @@ import { Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import TaskViewModal from "./TaskViewModal";
 import TasksModal from "./TasksModal";
 
 const TasksTable = ({ data, refetch, isLoading }) => {
   const [isUpdate, setIsUpdated] = useState(false);
   const [updatedInfo, setUpdatedInfo] = useState({});
   const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
+  const [openTaskViewModal, setOpenTaskViewModal] = useState(false);
 
   const handleEditTask = (record) => {
     setIsOpenTaskModal(true);
     setUpdatedInfo(record);
     setIsUpdated(true);
+  };
+  const handleViewTAsk = (record) => {
+    setUpdatedInfo(record);
+    setOpenTaskViewModal(true);
   };
   const handleDeleteTask = async (taskId) => {
     try {
@@ -103,7 +109,10 @@ const TasksTable = ({ data, refetch, isLoading }) => {
       render: (_, record) => (
         <Space size="middle" className="text-xl">
           <Tooltip title="View Project">
-            <FundViewOutlined className="cursor-pointer" />
+            <FundViewOutlined
+              onClick={() => handleViewTAsk(record)}
+              className="cursor-pointer"
+            />
           </Tooltip>
           <Tooltip title="Edit Project" color="geekblue">
             <EditTwoTone
@@ -136,6 +145,11 @@ const TasksTable = ({ data, refetch, isLoading }) => {
         updatedInfo={updatedInfo}
         isOpenTasksModal={isOpenTaskModal}
         setIsOpenTasksModal={setIsOpenTaskModal}
+      />
+      <TaskViewModal
+        openTaskViewModal={openTaskViewModal}
+        setOpenTaskViewModal={setOpenTaskViewModal}
+        taskInfo={updatedInfo}
       />
     </>
   );

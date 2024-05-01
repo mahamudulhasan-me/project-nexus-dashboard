@@ -8,16 +8,22 @@ import moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import ProjectUpdateModal from "./ProjectUpdateModal";
+import ProjectViewModal from "./ProjectViewModal";
 
 const ProjectsTable = ({ data, refetch, isLoading }) => {
   const [isUpdate, setIsUpdated] = useState(false);
   const [updatedInfo, setUpdatedInfo] = useState({});
   const [isOpenProjectModal, setIsOpenProjectModal] = useState(false);
+  const [openProjectViewModal, setOpenProjectViewModal] = useState(false);
 
   const handleEditProject = (record) => {
     setIsOpenProjectModal(true);
     setUpdatedInfo(record);
     setIsUpdated(true);
+  };
+  const handleViewProject = (record) => {
+    setUpdatedInfo(record);
+    setOpenProjectViewModal(true);
   };
   const handleDeleteProject = async (projectId) => {
     try {
@@ -99,7 +105,10 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
       render: (_, record) => (
         <Space size="middle" className="text-xl">
           <Tooltip title="View Project">
-            <FundViewOutlined className="cursor-pointer" />
+            <FundViewOutlined
+              onClick={() => handleViewProject(record)}
+              className="cursor-pointer"
+            />
           </Tooltip>
           <Tooltip title="Edit Project" color="geekblue">
             <EditTwoTone
@@ -134,6 +143,11 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
           refetch={refetch}
         />
       )}
+      <ProjectViewModal
+        setOpenProjectViewModal={setOpenProjectViewModal}
+        openProjectViewModal={openProjectViewModal}
+        projectInfo={updatedInfo}
+      />
       <Table columns={columns} dataSource={data} loading={isLoading} />
     </>
   );

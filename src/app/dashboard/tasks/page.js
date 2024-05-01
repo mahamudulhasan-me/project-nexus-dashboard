@@ -2,6 +2,7 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Divider, Radio } from "antd";
+import Search from "antd/es/input/Search";
 import { useEffect, useState } from "react";
 import TasksModal from "../../../components/Pages/Tasks/TasksModal";
 import TasksTable from "../../../components/Pages/Tasks/TasksTable";
@@ -10,6 +11,7 @@ const TasksPage = () => {
   const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
   const [tasksData, setTasksData] = useState([]);
   const [filterBy, setFilterBy] = useState("all");
+  const [searchValue, setSearchValue] = useState("");
   const useGetTasks = async () => {
     const response = await fetch("http://localhost:5000/tasks");
     if (!response.ok) {
@@ -33,10 +35,38 @@ const TasksPage = () => {
     }
   }, [data, filterBy]);
 
+  useEffect(() => {
+    const delaySearch = setTimeout(() => {
+      const filtered = data.filter((task) =>
+        taskMatchesSearch(task, searchValue)
+      );
+      setTasksData(filtered);
+    }, 300);
+    return () => clearTimeout(delaySearch);
+  }, [searchValue, data]);
+
+  const taskMatchesSearch = (task, searchValue) => {
+    const searchString = searchValue.toLowerCase();
+    return (
+      task.title.toLowerCase().includes(searchString) ||
+      task.deadline.toLowerCase().includes(searchString) ||
+      task?.assignedTo.toLowerCase().includes(searchString) ||
+      task?.priority.toLowerCase().includes(searchString)
+    );
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Tasks</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-3xl font-semibold">Tasks</h1>{" "}
+          <Search
+            placeholder="input search text"
+            allowClear
+            onChange={(e) => setSearchValue(e.target.value)}
+            style={{ width: 250 }}
+          />
+        </div>
         <div className="flex items-center gap-4">
           {" "}
           <Button

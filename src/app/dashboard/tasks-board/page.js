@@ -9,7 +9,6 @@ const TasksBoard = () => {
   const [completeTasks, setCompleteTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [pendingTasks, setPendingTasks] = useState([]);
-  console.log(pendingTasks);
 
   const useGetTasks = async () => {
     const response = await fetch("http://localhost:5000/tasks");
