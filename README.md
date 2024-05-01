@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Nexus Dashboard
 
-## Getting Started
+**Live Preview:** [Live Preview](https://your-live-preview-url.com)
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The Project Management Dashboard is a web application designed to assist users in managing projects, tasks, and team members efficiently. It provides a user-friendly interface for accessing project information, managing tasks, and tracking project progress.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Authentication Page
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Login Form:** Users can log in using a login form with validation. Ant Design components are used for form elements, and validation feedback is provided.
+- **Mock Authentication:** Backend authentication is not implemented. Instead, mock responses are used for successful and unsuccessful logins.
 
-## Learn More
+### Projects Overview Page
 
-To learn more about Next.js, take a look at the following resources:
+- **Projects List:** Displays a list of projects with options to view, edit, or delete.
+- **Data Fetching:** Utilizes React Query for fetching project data from a mock API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Project Details Page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Project Information:** Provides detailed information about selected projects, including tasks, team members, and recent activities.
+- **Task Management:** Users can add new tasks, edit existing tasks, and assign team members to tasks.
 
-## Deploy on Vercel
+### Task Management
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Task CRUD Operations:** Users can perform CRUD operations on tasks, including adding, editing, and marking tasks as completed.
+- **Drag-and-Drop:** Implements drag-and-drop functionality to change the status of tasks using Zustand for state management.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Task Filters and Search Functionality
+
+- **Filters:** Allows users to filter tasks by status, due date, or assignee.
+- **Search:** Provides a search bar for quickly finding tasks.
+
+### Interactive Dashboard
+
+- **UI Components:** Utilizes Ant Design for creating interactive components such as modals, dropdowns, and tooltips.
+- **Responsive Design:** Ensures responsiveness using Tailwind CSS for custom styling and layout.
+
+## Technical Details
+
+### Framework
+
+- **Next.js:** Used for routing and server-side rendering.
+
+### Data Fetching
+
+- **React Query:** Handles asynchronous data fetching, state management, and cache management.
+
+### UI Components
+
+- **Ant Design:** Incorporates pre-built UI components to enhance user experience.
+
+### Styling
+
+- **Tailwind CSS:** Implements responsive design and custom styling requirements.

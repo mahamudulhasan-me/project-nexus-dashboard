@@ -53,7 +53,7 @@ const DashboardLayout = ({ children }) => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="h-screen bg-slate-900 text-white fixed top-0 left-0 bottom-0"
+        className="h-screen w-full bg-slate-900 text-white sticky top-0 left-0 bottom-0"
       >
         <div className="demo-logo-vertical flex w-full justify-center items-center py-4">
           <Image src={"/images/logo.png"} width={30} height={30} alt="logo" />
@@ -103,9 +103,9 @@ const DashboardLayout = ({ children }) => {
           style={{
             margin: "24px 16px",
             padding: 24,
-            minHeight: 280,
             background: "#fff",
           }}
+          className="min-h-fit"
         >
           <QueryClientProvider client={new QueryClient()}>
             {children}
