@@ -39,6 +39,12 @@ const DashboardLayout = ({ children }) => {
       label: "Tasks",
       href: "/dashboard/tasks",
     },
+    {
+      key: "taskBoard",
+      icon: <UnorderedListOutlined />,
+      label: "Task Board",
+      href: "/dashboard/tasks-board",
+    },
   ];
 
   return (
@@ -53,7 +59,7 @@ const DashboardLayout = ({ children }) => {
           <Image src={"/images/logo.png"} width={30} height={30} alt="logo" />
         </div>
         <Divider />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={["dashboard"]}>
+        <Menu theme="dark" mode="inline">
           {menuItems.map((item) => (
             <Menu.Item key={item.key} icon={item.icon}>
               <Link href={item.href} className="text-white">
@@ -63,10 +69,10 @@ const DashboardLayout = ({ children }) => {
           ))}
         </Menu>
       </Sider>
-      <Layout>
+      <Layout className="h-screen overflow-y-scroll">
         <Header
           style={{ padding: 0, background: "#fff", paddingLeft: 16 }}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center sticky top-0 z-50 shadow-md"
         >
           <div className="flex items-center gap-4">
             <Button

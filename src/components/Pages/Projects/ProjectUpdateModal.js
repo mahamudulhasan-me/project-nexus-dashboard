@@ -54,7 +54,6 @@ const ProjectUpdateModal = ({
           updatedAt: new Date().toISOString(),
         }),
       });
-      console.log("response", response);
       if (response.ok) {
         // Data posted successfully
         refetch();
@@ -126,7 +125,7 @@ const ProjectUpdateModal = ({
               defaultValue={status}
               className="w-full"
               allowClear
-              onChange={(setChangeStatus) => setChangeStatus(setChangeStatus)}
+              onChange={(value) => setChangeStatus(value)}
               options={[
                 {
                   value: "In Progress",

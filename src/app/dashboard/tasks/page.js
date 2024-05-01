@@ -3,15 +3,15 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Divider, Radio } from "antd";
 import { useEffect, useState } from "react";
-import ProjectModal from "../../../components/Pages/Projects/ProjectModal";
-import ProjectsTable from "../../../components/Pages/Projects/ProjectsTable";
+import TasksModal from "../../../components/Pages/Tasks/TasksModal";
+import TasksTable from "../../../components/Pages/Tasks/TasksTable";
 
-const ProjectPage = () => {
-  const [isOpenProjectModal, setIsOpenProjectModal] = useState(false);
-  const [filteredData, setFilteredData] = useState([]);
+const TasksPage = () => {
+  const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
+  const [tasksData, setTasksData] = useState([]);
   const [filterBy, setFilterBy] = useState("all");
-  const useGetProjects = async () => {
-    const response = await fetch("http://localhost:5000/projects");
+  const useGetTasks = async () => {
+    const response = await fetch("http://localhost:5000/tasks");
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -19,16 +19,16 @@ const ProjectPage = () => {
   };
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["projects"],
-    queryFn: useGetProjects,
+    queryKey: ["tasks"],
+    queryFn: useGetTasks,
   });
 
   useEffect(() => {
     if (data) {
       if (filterBy === "all") {
-        setFilteredData(data);
+        setTasksData(data);
       } else {
-        setFilteredData(data.filter((project) => project.status === filterBy));
+        setTasksData(data.filter((project) => project.status === filterBy));
       }
     }
   }, [data, filterBy]);
@@ -36,16 +36,16 @@ const ProjectPage = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Projects</h1>
+        <h1 className="text-3xl font-semibold">Tasks</h1>
         <div className="flex items-center gap-4">
           {" "}
           <Button
-            onClick={() => setIsOpenProjectModal(true)}
+            onClick={() => setIsOpenTaskModal(true)}
             type="primary"
             icon={<PlusCircleOutlined />}
             size={"middle"}
           >
-            Create Project
+            Create Task
           </Button>
           <Radio.Group
             value={filterBy}
@@ -61,15 +61,11 @@ const ProjectPage = () => {
         </div>
       </div>
       <Divider plain />
-      <ProjectsTable
-        data={filteredData}
-        refetch={refetch}
-        isLoading={isLoading}
-      />
-      {isOpenProjectModal && (
-        <ProjectModal
-          setIsOpenProjectModal={setIsOpenProjectModal}
-          isOpenProjectModal={isOpenProjectModal}
+      <TasksTable data={tasksData} refetch={refetch} isLoading={isLoading} />
+      {isOpenTaskModal && (
+        <TasksModal
+          setIsOpenTasksModal={setIsOpenTaskModal}
+          isOpenTasksModal={isOpenTaskModal}
           refetch={refetch}
         />
       )}
@@ -77,4 +73,4 @@ const ProjectPage = () => {
   );
 };
 
-export default ProjectPage;
+export default TasksPage;

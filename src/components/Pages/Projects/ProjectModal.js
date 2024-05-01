@@ -74,7 +74,7 @@ const ProjectModal = ({
 
   return (
     <Modal
-      title={"Create erer Project"}
+      title={"Create Project"}
       centered
       open={isOpenProjectModal} // Use visible instead of open
       onOk={handleCreateProject}

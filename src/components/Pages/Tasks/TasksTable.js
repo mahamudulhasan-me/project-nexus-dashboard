@@ -1,49 +1,79 @@
 import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
   DeleteOutlined,
   EditTwoTone,
   FundViewOutlined,
+  VerticalAlignTopOutlined,
 } from "@ant-design/icons";
 import { Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import ProjectUpdateModal from "./ProjectUpdateModal";
+import TasksModal from "./TasksModal";
 
-const ProjectsTable = ({ data, refetch, isLoading }) => {
+const TasksTable = ({ data, refetch, isLoading }) => {
   const [isUpdate, setIsUpdated] = useState(false);
   const [updatedInfo, setUpdatedInfo] = useState({});
-  const [isOpenProjectModal, setIsOpenProjectModal] = useState(false);
+  const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
 
-  const handleEditProject = (record) => {
-    setIsOpenProjectModal(true);
+  const handleEditTask = (record) => {
+    setIsOpenTaskModal(true);
     setUpdatedInfo(record);
     setIsUpdated(true);
   };
-  const handleDeleteProject = async (projectId) => {
+  const handleDeleteTask = async (taskId) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/projects/${projectId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`http://localhost:5000/task/${taskId}`, {
+        method: "DELETE",
+      });
       if (response.ok) {
-        toast.success("Project deleted successfully");
+        toast.success("Task deleted successfully");
         refetch();
       } else {
-        toast.error("Failed to delete project");
+        toast.error("Failed to delete task");
       }
     } catch (error) {
-      toast.error("Error deleting project:", error.message);
+      toast.error("Error deleting task:", error.message);
     }
   };
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      // render: (text) => <a>{text}</a>,
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Assigned To",
+      dataIndex: "assignedTo",
+      key: "assignedTo",
+    },
+    {
+      title: "Priority",
+      dataIndex: "priority",
+      key: "priority",
+      render: (_, { priority }) => {
+        let color = "";
+        let icon = null;
+
+        if (priority === "High") {
+          color = "red";
+          icon = <ArrowUpOutlined />;
+        } else if (priority === "Medium") {
+          color = "orange";
+          icon = <VerticalAlignTopOutlined />;
+        } else {
+          color = "green";
+          icon = <ArrowDownOutlined />;
+        }
+
+        return (
+          <Tag color={color} className="text-[14px]">
+            {priority} {icon}
+          </Tag>
+        );
+      },
     },
     {
       title: "Status",
@@ -62,32 +92,6 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
       },
     },
     {
-      title: "Teams",
-      key: "team",
-      dataIndex: "team",
-      render: (_, { team }) => (
-        <>
-          {team?.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: "Assign Date",
-      dataIndex: "createAt",
-      key: "createAt",
-      render: (_, { createAt }) => moment(createAt).format("MMM Do YY"),
-    },
-    {
       title: "Dead Line",
       dataIndex: "deadline",
       key: "deadline",
@@ -103,7 +107,7 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
           </Tooltip>
           <Tooltip title="Edit Project" color="geekblue">
             <EditTwoTone
-              onClick={() => handleEditProject(record)}
+              onClick={() => handleEditTask(record)}
               className="cursor-pointer"
             />
           </Tooltip>
@@ -111,7 +115,7 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
             <Popconfirm
               title="Delete the task"
               description="Are you sure to delete this task?"
-              onConfirm={() => handleDeleteProject(record._id)}
+              onConfirm={() => handleDeleteTask(record._id)}
               okText="Yes"
               cancelText="No"
             >
@@ -125,18 +129,16 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
 
   return (
     <>
-      {isOpenProjectModal && (
-        <ProjectUpdateModal
-          isOpenProjectModal={isOpenProjectModal}
-          setIsOpenProjectModal={setIsOpenProjectModal}
-          updatedInfo={updatedInfo}
-          isUpdate={isUpdate}
-          refetch={refetch}
-        />
-      )}
       <Table columns={columns} dataSource={data} loading={isLoading} />
+      <TasksModal
+        isUpdate={isUpdate}
+        refetch={refetch}
+        updatedInfo={updatedInfo}
+        isOpenTasksModal={isOpenTaskModal}
+        setIsOpenTasksModal={setIsOpenTaskModal}
+      />
     </>
   );
 };
 
-export default ProjectsTable;
+export default TasksTable;
