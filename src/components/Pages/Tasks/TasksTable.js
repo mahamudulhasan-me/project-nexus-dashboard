@@ -30,9 +30,12 @@ const TasksTable = ({ data, refetch, isLoading }) => {
   };
   const handleDeleteTask = async (taskId) => {
     try {
-      const response = await fetch(`http://localhost:5000/task/${taskId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/task/${taskId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (response.ok) {
         toast.success("Task deleted successfully");
         refetch();

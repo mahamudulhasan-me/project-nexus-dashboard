@@ -48,21 +48,24 @@ const TaskModal = ({
 
     try {
       // Send a POST request to your API endpoint
-      const response = await fetch("http://localhost:5000/tasks/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: taskTitle,
-          deadline: taskDeadLine,
-          assignedTo: taskAssignedTo,
-          description: taskDescription,
-          status: taskStatus,
-          priority: taskPriority,
-          createdAt: new Date().toISOString(),
-        }),
-      });
+      const response = await fetch(
+        "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/tasks/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: taskTitle,
+            deadline: taskDeadLine,
+            assignedTo: taskAssignedTo,
+            description: taskDescription,
+            status: taskStatus,
+            priority: taskPriority,
+            createdAt: new Date().toISOString(),
+          }),
+        }
+      );
 
       if (response.ok) {
         refetch();
@@ -83,7 +86,7 @@ const TaskModal = ({
     try {
       // Send a POST request to your API endpoint
       const response = await fetch(
-        `http://localhost:5000/task/${updatedInfo?._id}`,
+        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/task/${updatedInfo?._id}`,
         {
           method: "PATCH",
           headers: {

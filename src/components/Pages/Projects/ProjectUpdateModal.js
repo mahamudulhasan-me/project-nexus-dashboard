@@ -40,20 +40,23 @@ const ProjectUpdateModal = ({
 
     try {
       // Send a POST request to your API endpoint
-      const response = await fetch(`http://localhost:5000/projects/${_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: projectName,
-          deadLine: deadLineDate,
-          team: teamMembers,
-          description: descriptions,
-          status: changeStatus,
-          updatedAt: new Date().toISOString(),
-        }),
-      });
+      const response = await fetch(
+        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: projectName,
+            deadLine: deadLineDate,
+            team: teamMembers,
+            description: descriptions,
+            status: changeStatus,
+            updatedAt: new Date().toISOString(),
+          }),
+        }
+      );
       if (response.ok) {
         // Data posted successfully
         refetch();

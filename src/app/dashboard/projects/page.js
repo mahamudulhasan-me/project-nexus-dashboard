@@ -13,7 +13,9 @@ const ProjectPage = () => {
   const [filterBy, setFilterBy] = useState("all");
   const [searchValue, setSearchValue] = useState("");
   const useGetProjects = async () => {
-    const response = await fetch("http://localhost:5000/projects");
+    const response = await fetch(
+      "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects"
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

@@ -13,7 +13,9 @@ const TasksPage = () => {
   const [filterBy, setFilterBy] = useState("all");
   const [searchValue, setSearchValue] = useState("");
   const useGetTasks = async () => {
-    const response = await fetch("http://localhost:5000/tasks");
+    const response = await fetch(
+      "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/tasks"
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

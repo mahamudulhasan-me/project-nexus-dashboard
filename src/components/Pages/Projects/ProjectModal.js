@@ -36,20 +36,23 @@ const ProjectModal = ({
 
     try {
       // Send a POST request to your API endpoint
-      const response = await fetch("http://localhost:5000/projects/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: projectName,
-          deadLine: deadLine,
-          team: teamMembers,
-          description: description,
-          status: "In Progress",
-          createdAt: new Date().toISOString(),
-        }),
-      });
+      const response = await fetch(
+        "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: projectName,
+            deadLine: deadLine,
+            team: teamMembers,
+            description: description,
+            status: "In Progress",
+            createdAt: new Date().toISOString(),
+          }),
+        }
+      );
 
       if (response.ok) {
         // Data posted successfully
