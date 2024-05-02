@@ -14,7 +14,7 @@ const ProjectPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const useGetProjects = async () => {
     const response = await fetch(
-      "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects"
+      "https://project-nexus-server-mu.vercel.app/projects"
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -63,7 +63,7 @@ const ProjectPage = () => {
         <div className="flex items-center md:flex-row flex-col  gap-2">
           <h1 className="text-3xl font-semibold">Projects</h1>{" "}
           <Search
-            placeholder="input search text"
+            placeholder="Search Project"
             allowClear
             onChange={(e) => setSearchValue(e.target.value)}
             style={{ width: 250 }}

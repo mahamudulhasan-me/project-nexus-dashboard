@@ -41,7 +41,7 @@ const ProjectUpdateModal = ({
     try {
       // Send a POST request to your API endpoint
       const response = await fetch(
-        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects/${_id}`,
+        `https://project-nexus-server-mu.vercel.app/projects/${_id}`,
         {
           method: "PATCH",
           headers: {
@@ -67,7 +67,6 @@ const ProjectUpdateModal = ({
         console.error("Failed to update project data:", response.status);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error updating project data:", error.message);
     }
   };

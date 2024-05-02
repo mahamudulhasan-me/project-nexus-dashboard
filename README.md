@@ -1,6 +1,11 @@
 # Project Nexus Dashboard
 
-**Live Preview:** [Live Preview](https://your-live-preview-url.com)
+**Live Preview:** [Live Preview](https://project-nexus-dashboard.vercel.app/)
+
+### Credential
+
+- **Email:** admin@nexusProject.com
+- **Password:** 123
 
 ## Overview
 

@@ -37,7 +37,7 @@ const ProjectModal = ({
     try {
       // Send a POST request to your API endpoint
       const response = await fetch(
-        "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects/",
+        "https://project-nexus-server-mu.vercel.app/projects/",
         {
           method: "POST",
           headers: {

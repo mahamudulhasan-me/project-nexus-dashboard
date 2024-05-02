@@ -49,7 +49,7 @@ const TaskModal = ({
     try {
       // Send a POST request to your API endpoint
       const response = await fetch(
-        "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/tasks/",
+        "https://project-nexus-server-mu.vercel.app/tasks/",
         {
           method: "POST",
           headers: {
@@ -86,7 +86,7 @@ const TaskModal = ({
     try {
       // Send a POST request to your API endpoint
       const response = await fetch(
-        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/task/${updatedInfo?._id}`,
+        `https://project-nexus-server-mu.vercel.app/task/${updatedInfo?._id}`,
         {
           method: "PATCH",
           headers: {
@@ -114,7 +114,6 @@ const TaskModal = ({
         console.error("Failed to update task data:", response.status);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error updating task data:", error.message);
     }
   };

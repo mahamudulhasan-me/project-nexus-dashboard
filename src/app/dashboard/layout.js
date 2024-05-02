@@ -51,7 +51,7 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth <= 768; // Adjust the mobile size threshold as needed
-      setCollapsed(true);
+      setCollapsed(isMobile);
     };
 
     window.addEventListener("resize", handleResize);
@@ -97,7 +97,7 @@ const DashboardLayout = ({ children }) => {
               onClick={() => setCollapsed(!collapsed)}
             />
             <Search
-              placeholder="input search text"
+              placeholder="search"
               allowClear
               //   onSearch={onSearch}
               className="w-[300px] hidden md:block"

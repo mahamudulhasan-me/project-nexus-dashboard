@@ -28,7 +28,7 @@ const ProjectsTable = ({ data, refetch, isLoading }) => {
   const handleDeleteProject = async (projectId) => {
     try {
       const response = await fetch(
-        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/projects/${projectId}`,
+        `https://project-nexus-server-mu.vercel.app/projects/${projectId}`,
         {
           method: "DELETE",
         }

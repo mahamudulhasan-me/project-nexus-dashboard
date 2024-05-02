@@ -8,7 +8,6 @@ const TaskViewModal = ({
   setOpenTaskViewModal,
   taskInfo,
 }) => {
-  console.log(taskInfo);
   const { title, description, status, assignedTo, priority, deadline } =
     taskInfo;
   return (

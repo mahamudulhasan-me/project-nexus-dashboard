@@ -8,9 +8,8 @@ const ProjectViewModal = ({
   setOpenProjectViewModal,
   projectInfo,
 }) => {
-  console.log(projectInfo);
   const { _id, name, deadline, team, description, status } = projectInfo;
-  console.log(team);
+
   return (
     <Modal
       title=""

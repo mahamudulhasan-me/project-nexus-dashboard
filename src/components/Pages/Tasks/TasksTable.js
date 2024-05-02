@@ -31,7 +31,7 @@ const TasksTable = ({ data, refetch, isLoading }) => {
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await fetch(
-        `https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/task/${taskId}`,
+        `https://project-nexus-server-mu.vercel.app/task/${taskId}`,
         {
           method: "DELETE",
         }

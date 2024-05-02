@@ -12,7 +12,7 @@ const TasksBoard = () => {
 
   const useGetTasks = async () => {
     const response = await fetch(
-      "https://project-nexus-server-i51d4jnsr-mahamudulhasanmes-projects.vercel.app/tasks"
+      "https://project-nexus-server-mu.vercel.app/tasks"
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
